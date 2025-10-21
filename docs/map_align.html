@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>qc – Agavoideae-PEPC</title>
+<title>Mapping &amp; Aligning Trimmed Reads – Agavoideae-PEPC</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -127,11 +127,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./qc.html" aria-current="page"> 
+    <a class="nav-link" href="./qc.html"> 
 <span class="menu-text">Quality Checks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./map_align.html"> 
+    <a class="nav-link active" href="./map_align.html" aria-current="page"> 
 <span class="menu-text">Map &amp; Align</span></a>
   </li>  
 </ul>
@@ -147,110 +147,106 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Mapping &amp; Aligning Trimmed Reads</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<p>Quality checks on ilumina whole genome shotgun sequencing fastq’s, collected from X.</p>
-<section id="fastqc" class="level1">
-<h1>FastQC</h1>
-<p>Andrews S. (2010). FastQC: a quality control tool for high throughput sequence data. Available online at: <a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc">http://www.bioinformatics.babraham.ac.uk/projects/fastqc</a></p>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
 <div class="cell">
 <details class="code-fold">
-<summary>FastQC Code</summary>
+<summary>Mapping &amp; Aligning Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fastqc/0.12.1</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="va">$FASTQ</span> <span class="at">-o</span> sample_reports/</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"FastQC Complete"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="va">REF</span><span class="op">=</span><span class="st">"Reference_Genome.fasta"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="va">TRIM</span><span class="op">=</span><span class="st">"sample.trim.fastq"</span> <span class="co"># Directly from Fastq Output</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Intermediate Index for BWA &amp; samtools</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> index <span class="va">$REF</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> faidx <span class="va">$REF</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"samtools &amp; bwa index complete"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Align Trimmed Reads to Reference</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem <span class="at">-t</span> <span class="st">"x"</span> <span class="va">$REF</span> <span class="va">$TRIM</span> <span class="dt">\</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="ex">samtools</span> view <span class="at">-b</span> <span class="at">-o</span> sample.unsorted.bam <span class="at">-</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"bwa align complete, samtools output"</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort BAM &amp; Index</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> sort <span class="at">-@</span> <span class="st">"x"</span> <span class="at">-o</span> sample.sorted.bam sample.unsorted.bam</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> index sample.sorted.bam</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"BAM Sorting &amp; Index Complete"</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Mark Duplicates</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> markdup sample.sorted.bam sample.dedup.bam</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Duplicates Marked"</span> </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Index Final BAM \</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> index sample.dedup.bam</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Final BAM Index"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="results" class="level3">
-<h3 class="anchored" data-anchor-id="results"><strong>Results</strong></h3>
-<div style="text-align: left;">
-
-<select id="reportSelect">
-  <option value="fastqc/Aamica_fastqc.html">Agave amica</option>
-  <option value="fastqc/Avirginica_fastqc.html">Agave virginica</option>
-  <option value="fastqc/Hfunifera_fastqc.html">Hesperaloe funifera</option>
-  <option value="fastqc/Hparviflora_fastqc.html">Hesperaloe parviflora</option>
-  <option value="fastqc/Hwhipplei_fastqc.html">Hesperoyucca whipplei</option>
-  <option value="fastqc/Byuccoides_fastqc.html">Beschorneria yuccoides</option>
-</select>
-
-<iframe id="reportFrame" src="fastqc/Aamica_fastqc.html" width="135%" height="750px" style="border:none; margin-top:1em; display:block; margin-left:0;">
-</iframe>
-
-</div>
-
-<script>
-  const select = document.getElementById('reportSelect');
-  const frame = document.getElementById('reportFrame');
-  select.addEventListener('change', () => {
-    frame.src = select.value;
-  });
-</script>
-</section>
-</section>
-<section id="fastp---quality-check-trimming" class="level1">
-<h1>Fastp - Quality Check &amp; Trimming</h1>
-<p>Shifu Chen, Yanqing Zhou, Yaru Chen, Jia Gu, fastp: an ultra-fast all-in-one FASTQ preprocessor, Bioinformatics, Volume 34, Issue 17, September 2018, Pages i884–i890, <a href="https://doi.org/10.1093/bioinformatics/bty560">https://doi.org/10.1093/bioinformatics/bty560</a></p>
+<section id="intermediate-index" class="level4">
+<h4 class="anchored" data-anchor-id="intermediate-index"><strong>Intermediate Index</strong></h4>
 <ul>
-<li><p>FASTQ preprocessor:</p>
+<li>bwa (index)
 <ul>
-<li><p>trims adapters</p></li>
-<li><p>quality trims (removes low-confidence bases)</p></li>
-<li><p>removes N’s</p></li>
-<li><p>filters out short reads</p></li>
-<li><p>generates QC plots (pre vs post Fastq)</p></li>
+<li>builds a set of index files from reference -index files required for bwa mem to map reads to reference</li>
+</ul></li>
+<li>samtools (faidx)
+<ul>
+<li>makes a FASTA index file (.fai)</li>
+<li>tools like samtools view and bcftools rely on this .fai</li>
 </ul></li>
 </ul>
-<div class="cell">
-<details class="code-fold">
-<summary>Fastp Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="va">FASTQ</span><span class="op">=</span><span class="st">"WGS_reads.fastq"</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">fastp</span> <span class="at">-i</span> <span class="va">$FASTQ</span> <span class="dt">\</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">-o</span> sample.trim.fastq <span class="dt">\</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">-h</span> sample.fastp.html <span class="dt">\</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">-j</span> sample.fastp.json <span class="dt">\</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">-w</span> <span class="st">"x"</span> </span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Fastq complete"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<section id="results-1" class="level3">
-<h3 class="anchored" data-anchor-id="results-1"><strong>Results</strong></h3>
-<div style="text-align: left;">
-
-  <select id="reportSelect2">
-    <option value="fastp/amica.fastp.html">Agave amica</option>
-    <option value="fastp/virginica.fastp.html">Agave virginica</option>
-    <option value="fastp/funifera.fastp.html">Hesperaloe funifera</option>
-    <option value="fastp/parviflora.fastp.html">Hesperaloe parviflora</option>
-    <option value="fastp/whipplei.fastp.html">Hesperoyucca whipplei</option>
-    <option value="fastp/yuccoides.fastp.html">Beschorneria yuccoides</option>
-  </select>
-
-  <iframe id="reportFrame2" src="fastp/amica.fastp.html" width="135%" height="750px" style="border:none; margin-top:1em; display:block; margin-left:0;">
-  </iframe>
-
-</div>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  const select = document.getElementById('reportSelect2');
-  const frame = document.getElementById('reportFrame2');
-  select.addEventListener('change', function() {
-    frame.src = this.value;
-  });
-});
-</script>
-
-
 </section>
+<section id="align-trimmed-reads-to-reference" class="level4">
+<h4 class="anchored" data-anchor-id="align-trimmed-reads-to-reference"><strong>Align Trimmed Reads to Reference</strong></h4>
+<ul>
+<li>bwa mem = aligner for short illumina reads
+<ul>
+<li>output is in SAM format</li>
+</ul></li>
+<li>‘|’ = pipe into samtools view -b to get BAM output</li>
+</ul>
+</section>
+<section id="sort-bam-index" class="level4">
+<h4 class="anchored" data-anchor-id="sort-bam-index"><strong>Sort BAM &amp; Index</strong></h4>
+<ul>
+<li>sorted by genomic coordinates for most downstream tools</li>
+</ul>
+</section>
+<section id="mark-duplicates" class="level4">
+<h4 class="anchored" data-anchor-id="mark-duplicates"><strong>Mark Duplicates</strong></h4>
+<ul>
+<li>PCR amplification during library prep can create duplicate reads
+<ul>
+<li>inflate coverage + bias variant calling</li>
+</ul></li>
+<li>identifies these duplicates and flags them in the BAM</li>
+</ul>
+</section>
+<section id="index-final-bam" class="level4">
+<h4 class="anchored" data-anchor-id="index-final-bam"><strong>Index Final BAM</strong></h4>
+<ul>
+<li>Final BAM indexed for downstream processes</li>
+</ul>
+
+
 </section>
 
 </main> <!-- /main -->

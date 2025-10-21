@@ -10,6 +10,8 @@ website:
         text: "Home"
       - href: qc.qmd
         text: "Quality Checks"
+      - href: map_align.qmd
+        text: "Map & Align"
 
 format:
   html:

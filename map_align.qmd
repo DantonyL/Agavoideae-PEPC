@@ -1,0 +1,59 @@
+---
+title: Mapping & Aligning Trimmed Reads
+engine: knitr
+---
+```{bash Map & Align, eval=FALSE}
+#| code-fold: true
+#| code-summary: "Mapping & Aligning Code"
+
+#!/bin/bash
+
+REF="Reference_Genome.fasta"
+TRIM="sample.trim.fastq" # Directly from Fastq Output
+
+# Intermediate Index for BWA & samtools
+bwa index $REF
+samtools faidx $REF
+echo "samtools & bwa index complete"
+
+# Align Trimmed Reads to Reference
+bwa mem -t "x" $REF $TRIM \
+  | samtools view -b -o sample.unsorted.bam -
+echo "bwa align complete, samtools output"
+
+# Sort BAM & Index
+samtools sort -@ "x" -o sample.sorted.bam sample.unsorted.bam
+samtools index sample.sorted.bam
+echo "BAM Sorting & Index Complete"
+
+# Mark Duplicates
+samtools markdup sample.sorted.bam sample.dedup.bam
+echo "Duplicates Marked" 
+
+# Index Final BAM \
+samtools index sample.dedup.bam
+echo "Final BAM Index"
+```
+#### **Intermediate Index**
+- bwa (index)
+    - builds a set of index files from reference
+    -index files required for bwa mem to map reads to reference
+- samtools (faidx)
+    - makes a FASTA index file (.fai)
+    - tools like samtools view and bcftools rely on this .fai
+
+#### **Align Trimmed Reads to Reference**
+- bwa mem = aligner for short illumina reads
+    - output is in SAM format
+- '|' = pipe into samtools view -b to get BAM output
+
+#### **Sort BAM & Index**
+- sorted by genomic coordinates for most downstream tools
+
+#### **Mark Duplicates**
+- PCR amplification during library prep can create duplicate reads
+    - inflate coverage + bias variant calling
+- identifies these duplicates and flags them in the BAM
+
+#### **Index Final BAM**
+- Final BAM indexed for downstream processes
