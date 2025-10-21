@@ -12,7 +12,7 @@ website:
         text: "Quality Checks"
       - href: map_align.qmd
         text: "Map & Align"
-  render:
+    render:
     - index.qmd
     - qc.qmd
     - map_align.qmd
