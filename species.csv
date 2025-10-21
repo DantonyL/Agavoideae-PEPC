@@ -1,0 +1,13 @@
+﻿Species,Reference Genome Available,Photosynthetic Pathways
+Arabidopsis thaliana,Yes,C3
+Yucca aloifolia,Yes,CAM
+Yucca filamentosa,Yes,C3
+Yucca brevifolia (Joshua Tree),Yes,Facultative CAM
+Agave tequilana,Yes,CAM
+Agave amica,No,Facultative CAM
+Agave virginica ,No,CAM
+Hesperoyucca whipplei,No,CAM
+Asparagus Setaceus,Yes,C3
+Hesperaloe funifera,No,CAM
+Hesperaloe parviflora,No,CAM
+Beschorneria yuccoides,No,Facultative CAM

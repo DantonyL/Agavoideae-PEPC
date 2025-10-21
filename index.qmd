@@ -1,11 +1,33 @@
 ---
-title: "Agavoideae-PEPC"
+about:
+  template: marquee
+  image: Agave_Amica.jpeg
+  image-width: 50em
+  links:
+    - icon: linkedin
+      text: Linkedin
+      href: www.linkedin.com/in/dantonylewis
+    - icon: github
+      text: Github
+      href: https://github.com/DantonyL
 ---
+## Exploring evolution of the PEPC gene and its relationship between CAM photosynthesis within the Agavoideae subfamily
 
-This is a Quarto website.
+```{r, eval=TRUE}
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Code"
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+library(knitr)
+library(dplyr)
+library(kableExtra)
+species <- read.csv("species.csv")
+colnames(species) <- c("Species", "Reference Genome Available", "Photosynthetic Pathway")
 
-```{r}
-1 + 1
+species_table <- kable(species, "html") |>
+  column_spec(1, italic = TRUE, width = "2.5in") |>
+  column_spec(2, width = "2.5in")
+
+species_table
 ```

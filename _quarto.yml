@@ -9,15 +9,14 @@ website:
       - href: index.qmd
         text: "Home"
       - href: qc.qmd
-        text: "Quality Control"
+        text: "Quality Checks"
 
 format:
   html:
     theme:
-      - cosmo
-      - brand
+      - minty
     css: styles.css
-    toc: true
+    toc: false
 
 
 

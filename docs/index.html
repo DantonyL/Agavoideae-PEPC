@@ -67,12 +67,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-530bf8e59df25186f8bffdc63bad3503.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -100,12 +99,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -128,7 +129,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./qc.html"> 
-<span class="menu-text">Quality Control</span></a>
+<span class="menu-text">Quality Checks</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -141,43 +142,123 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
-    </div>
+    
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Agavoideae-PEPC</h1>
-</div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
+<div class="quarto-about-marquee">
+  <div class="about-image-container">
+    <img src="Agave_Amica.jpeg" class="about-image " style="width: 50em;">
   </div>
-  
-
-
-</header>
-
-
-<p>This is a Quarto website.</p>
-<p>To learn more about Quarto websites visit <a href="https://quarto.org/docs/websites" class="uri">https://quarto.org/docs/websites</a>.</p>
+  <div class="about-contents">
+    <header id="title-block-header" class="quarto-title-block"></header> <main class="content" id="quarto-document-content">
+<section id="exploring-evolution-of-the-pepc-gene-and-its-relationship-between-cam-photosynthesis-within-the-agavoideae-subfamily" class="level2">
+<h2 data-anchor-id="exploring-evolution-of-the-pepc-gene-and-its-relationship-between-cam-photosynthesis-within-the-agavoideae-subfamily">Exploring evolution of the PEPC gene and its relationship between CAM photosynthesis within the Agavoideae subfamily</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>species <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"species.csv"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(species) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Species"</span>, <span class="st">"Reference Genome Available"</span>, <span class="st">"Photosynthetic Pathway"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>species_table <span class="ot">&lt;-</span> <span class="fu">kable</span>(species, <span class="st">"html"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">italic =</span> <span class="cn">TRUE</span>, <span class="at">width =</span> <span class="st">"2.5in"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">2</span>, <span class="at">width =</span> <span class="st">"2.5in"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>species_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Species</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Reference Genome Available</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Photosynthetic Pathway</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; width: 2.5in; font-style: italic;">Arabidopsis thaliana</td>
+<td style="text-align: left; width: 2.5in;">Yes</td>
+<td style="text-align: left;">C3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: 2.5in; font-style: italic;">Yucca aloifolia</td>
+<td style="text-align: left; width: 2.5in;">Yes</td>
+<td style="text-align: left;">CAM</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: 2.5in; font-style: italic;">Yucca filamentosa</td>
+<td style="text-align: left; width: 2.5in;">Yes</td>
+<td style="text-align: left;">C3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: 2.5in; font-style: italic;">Yucca brevifolia (Joshua Tree)</td>
+<td style="text-align: left; width: 2.5in;">Yes</td>
+<td style="text-align: left;">Facultative CAM</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: 2.5in; font-style: italic;">Agave tequilana</td>
+<td style="text-align: left; width: 2.5in;">Yes</td>
+<td style="text-align: left;">CAM</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: 2.5in; font-style: italic;">Agave amica</td>
+<td style="text-align: left; width: 2.5in;">No</td>
+<td style="text-align: left;">Facultative CAM</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: 2.5in; font-style: italic;">Agave virginica&nbsp;</td>
+<td style="text-align: left; width: 2.5in;">No</td>
+<td style="text-align: left;">CAM</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: 2.5in; font-style: italic;">Hesperoyucca whipplei</td>
+<td style="text-align: left; width: 2.5in;">No</td>
+<td style="text-align: left;">CAM</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: 2.5in; font-style: italic;">Asparagus Setaceus</td>
+<td style="text-align: left; width: 2.5in;">Yes</td>
+<td style="text-align: left;">C3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: 2.5in; font-style: italic;">Hesperaloe funifera</td>
+<td style="text-align: left; width: 2.5in;">No</td>
+<td style="text-align: left;">CAM</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: 2.5in; font-style: italic;">Hesperaloe parviflora</td>
+<td style="text-align: left; width: 2.5in;">No</td>
+<td style="text-align: left;">CAM</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: 2.5in; font-style: italic;">Beschorneria yuccoides</td>
+<td style="text-align: left; width: 2.5in;">No</td>
+<td style="text-align: left;">Facultative CAM</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 
 
-
-</main> <!-- /main -->
+</section>
+</main> 
+    <div class="about-footer"><div class="about-links">
+  <a href="/www.linkedin.com/in/dantonylewis" class="about-link" rel="" target="">
+    <i class="bi bi-linkedin"></i>
+     <span class="about-link-text">Linkedin</span>
+  </a>
+  <a href="https://github.com/DantonyL" class="about-link" rel="" target="">
+    <i class="bi bi-github"></i>
+     <span class="about-link-text">Github</span>
+  </a>
+</div>
+</div>
+  </div>
+</div>
+ <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -198,13 +279,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     

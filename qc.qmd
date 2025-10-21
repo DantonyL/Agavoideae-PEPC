@@ -1,9 +1,102 @@
 ---
-title: "About"
+engine: knitr
 ---
 
-About this site
+Quality checks on ilumina whole genome shotgun sequencing fastq's, collected from X.
 
-```{r}
-1 + 1
+# FastQC
+Andrews S. (2010). FastQC: a quality control tool for high throughput sequence data. Available online at: [http://www.bioinformatics.babraham.ac.uk/projects/fastqc](http://www.bioinformatics.babraham.ac.uk/projects/fastqc)
+
+```{bash FastQC, eval=FALSE}
+#| code-fold: true
+#| code-summary: "Code"
+
+#!/bin/bash
+module load fastqc/0.12.1
+
+fastqc $FASTQ -o sample_reports/
+echo "FastQC Complete"
 ```
+
+#### Results
+```{=html}
+<div style="text-align: left;">
+
+<select id="reportSelect">
+  <option value="fastqc/Aamica_fastqc.html">Agave amica</option>
+  <option value="fastqc/Avirginica_fastqc.html">Agave virginica</option>
+  <option value="fastqc/Hfunifera_fastqc.html">Hesperaloe funifera</option>
+  <option value="fastqc/Hparviflora_fastqc.html">Hesperaloe parviflora</option>
+  <option value="fastqc/Hwhipplei_fastqc.html">Hesperoyucca whipplei</option>
+  <option value="fastqc/Byuccoides_fastqc.html">Beschorneria yuccoides</option>
+</select>
+
+<iframe id="reportFrame"
+        src="fastqc/Aamica_fastqc.html"
+        width="135%"
+        height="750px"
+        style="border:none; margin-top:1em; display:block; margin-left:0;">
+</iframe>
+
+</div>
+
+<script>
+  const select = document.getElementById('reportSelect');
+  const frame = document.getElementById('reportFrame');
+  select.addEventListener('change', () => {
+    frame.src = select.value;
+  });
+</script>
+```
+
+
+
+# Fastp - Quality Check & Trimming
+Shifu Chen, Yanqing Zhou, Yaru Chen, Jia Gu, fastp: an ultra-fast all-in-one FASTQ preprocessor, Bioinformatics, Volume 34, Issue 17, September 2018, Pages i884–i890, [https://doi.org/10.1093/bioinformatics/bty560](https://doi.org/10.1093/bioinformatics/bty560)
+
+```{bash Fastq, eval=FALSE}
+#| code-fold: true
+#| code-summary: "Code"
+
+#!/bin/bash
+fastp -i $FASTQ \
+      -o sample.trim.fastq \
+      -h sample.fastp.html \
+      -j sample.fastp.json \
+      -w "x" 
+echo "Fastq complete"
+```
+
+#### Results
+```{=html}
+<div style="text-align: left;">
+
+  <select id="reportSelect2">
+    <option value="fastp/amica.fastp.html">Agave amica</option>
+    <option value="fastp/virginica.fastp.html">Agave virginica</option>
+    <option value="fastp/funifera.fastp.html">Hesperaloe funifera</option>
+    <option value="fastp/parviflora.fastp.html">Hesperaloe parviflora</option>
+    <option value="fastp/whipplei.fastp.html">Hesperoyucca whipplei</option>
+    <option value="fastp/yuccoides.fastp.html">Beschorneria yuccoides</option>
+  </select>
+
+  <iframe id="reportFrame2"
+          src="fastp/amica.fastp.html"
+          width="135%"
+          height="750px"
+          style="border:none; margin-top:1em; display:block; margin-left:0;">
+  </iframe>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const select = document.getElementById('reportSelect2');
+  const frame = document.getElementById('reportFrame2');
+  select.addEventListener('change', function() {
+    frame.src = this.value;
+  });
+});
+</script>
+```
+

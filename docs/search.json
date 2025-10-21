@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Agavoideae-PEPC",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "Code\nlibrary(knitr)\nlibrary(dplyr)\nlibrary(kableExtra)\nspecies &lt;- read.csv(\"species.csv\")\ncolnames(species) &lt;- c(\"Species\", \"Reference Genome Available\", \"Photosynthetic Pathway\")\n\nspecies_table &lt;- kable(species, \"html\") |&gt;\n  column_spec(1, italic = TRUE, width = \"2.5in\") |&gt;\n  column_spec(2, width = \"2.5in\")\n\nspecies_table\n\n\n\n\n\nSpecies\nReference Genome Available\nPhotosynthetic Pathway\n\n\n\n\nArabidopsis thaliana\nYes\nC3\n\n\nYucca aloifolia\nYes\nCAM\n\n\nYucca filamentosa\nYes\nC3\n\n\nYucca brevifolia (Joshua Tree)\nYes\nFacultative CAM\n\n\nAgave tequilana\nYes\nCAM\n\n\nAgave amica\nNo\nFacultative CAM\n\n\nAgave virginica \nNo\nCAM\n\n\nHesperoyucca whipplei\nNo\nCAM\n\n\nAsparagus Setaceus\nYes\nC3\n\n\nHesperaloe funifera\nNo\nCAM\n\n\nHesperaloe parviflora\nNo\nCAM\n\n\nBeschorneria yuccoides\nNo\nFacultative CAM"
   },
   {
     "objectID": "about.html",
@@ -16,8 +16,29 @@
   {
     "objectID": "qc.html",
     "href": "qc.html",
-    "title": "About",
+    "title": "FastQC",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "Quality checks on ilumina whole genome shotgun sequencing fastq’s, collected from X.\n\nFastQC\nAndrews S. (2010). FastQC: a quality control tool for high throughput sequence data. Available online at: http://www.bioinformatics.babraham.ac.uk/projects/fastqc\n\n\nCode\n#!/bin/bash\nmodule load fastqc/0.12.1\n\nfastqc $FASTQ -o sample_reports/\necho \"FastQC Complete\"\n\n\n\nResults\n\n\n\n  Agave amica\n  Agave virginica\n  Hesperaloe funifera\n  Hesperaloe parviflora\n  Hesperoyucca whipplei\n  Beschorneria yuccoides\n\n\n\n\n\n\n\n\n\n\n\nFastp - Quality Check & Trimming\nShifu Chen, Yanqing Zhou, Yaru Chen, Jia Gu, fastp: an ultra-fast all-in-one FASTQ preprocessor, Bioinformatics, Volume 34, Issue 17, September 2018, Pages i884–i890, https://doi.org/10.1093/bioinformatics/bty560\n\n\nCode\n#!/bin/bash\nfastp -i $FASTQ \\\n      -o sample.trim.fastq \\\n      -h sample.fastp.html \\\n      -j sample.fastp.json \\\n      -w \"x\" \necho \"Fastq complete\"\n\n\n\nResults\n\n\n  \n    Agave amica\n    Agave virginica\n    Hesperaloe funifera\n    Hesperaloe parviflora\n    Hesperoyucca whipplei\n    Beschorneria yuccoides"
+  },
+  {
+    "objectID": "index.html#exploring-evolution-of-the-pepc-gene-and-its-relationship-between-cam-photosynthesis-within-the-agavoideae-subfamily",
+    "href": "index.html#exploring-evolution-of-the-pepc-gene-and-its-relationship-between-cam-photosynthesis-within-the-agavoideae-subfamily",
+    "title": "Agavoideae-PEPC",
+    "section": "",
+    "text": "Code\nlibrary(knitr)\nlibrary(dplyr)\nlibrary(kableExtra)\nspecies &lt;- read.csv(\"species.csv\")\ncolnames(species) &lt;- c(\"Species\", \"Reference Genome Available\", \"Photosynthetic Pathway\")\n\nspecies_table &lt;- kable(species, \"html\") |&gt;\n  column_spec(1, italic = TRUE, width = \"2.5in\") |&gt;\n  column_spec(2, width = \"2.5in\")\n\nspecies_table\n\n\n\n\n\nSpecies\nReference Genome Available\nPhotosynthetic Pathway\n\n\n\n\nArabidopsis thaliana\nYes\nC3\n\n\nYucca aloifolia\nYes\nCAM\n\n\nYucca filamentosa\nYes\nC3\n\n\nYucca brevifolia (Joshua Tree)\nYes\nFacultative CAM\n\n\nAgave tequilana\nYes\nCAM\n\n\nAgave amica\nNo\nFacultative CAM\n\n\nAgave virginica \nNo\nCAM\n\n\nHesperoyucca whipplei\nNo\nCAM\n\n\nAsparagus Setaceus\nYes\nC3\n\n\nHesperaloe funifera\nNo\nCAM\n\n\nHesperaloe parviflora\nNo\nCAM\n\n\nBeschorneria yuccoides\nNo\nFacultative CAM"
+  },
+  {
+    "objectID": "qc.html#fastqc",
+    "href": "qc.html#fastqc",
+    "title": "Agavoideae-PEPC",
+    "section": "FastQC",
+    "text": "FastQC\nAndrews S. (2010). FastQC: a quality control tool for high throughput sequence data. Available online at: http://www.bioinformatics.babraham.ac.uk/projects/fastqc\n\n\nCode\n#!/bin/bash\nmodule load fastqc/0.12.1\n\nfastqc $FASTQ -o sample_reports/\necho \"FastQC Complete\"\n\n\n\nResults\n\n\n\n  Agave amica\n  Agave virginica\n  Hesperaloe funifera\n  Hesperaloe parviflora\n  Hesperoyucca whipplei\n  Beschorneria yuccoides"
+  },
+  {
+    "objectID": "qc.html#fastp---quality-check-trimming",
+    "href": "qc.html#fastp---quality-check-trimming",
+    "title": "Agavoideae-PEPC",
+    "section": "Fastp - Quality Check & Trimming",
+    "text": "Fastp - Quality Check & Trimming\nShifu Chen, Yanqing Zhou, Yaru Chen, Jia Gu, fastp: an ultra-fast all-in-one FASTQ preprocessor, Bioinformatics, Volume 34, Issue 17, September 2018, Pages i884–i890, https://doi.org/10.1093/bioinformatics/bty560\n\n\nCode\n#!/bin/bash\nfastp -i $FASTQ \\\n      -o sample.trim.fastq \\\n      -h sample.fastp.html \\\n      -j sample.fastp.json \\\n      -w \"x\" \necho \"Fastq complete\""
   }
 ]
