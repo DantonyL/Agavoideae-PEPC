@@ -1,0 +1,23 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Agavoideae-PEPC"
+  navbar:
+    left:
+      - href: index.qmd
+        text: "Home"
+      - href: qc.qmd
+        text: "Quality Control"
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
+
+
+
